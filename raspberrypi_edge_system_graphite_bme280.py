@@ -77,40 +77,8 @@ if __name__ == '__main__':
     graphite = Graphite(SocketDccComms(ip=config['GraphiteIP'],
                                port=config['GraphitePort']))
     
-#    graphite_reg_dev = graphite.register(bme280_model)
     graphite_reg_edge_system = graphite.register(edge_system)
    
-#    print(get_temperature())
-     
-    metric_name_t = config['MetricName_temperature']
-    temperature = Metric(
-        name=metric_name_t,
-        interval=3,
-        sampling_function=get_temperature
-    )
-    reg_temperature = graphite.register(temperature)
-    graphite.create_relationship(graphite_reg_edge_system, reg_temperature)
-    reg_temperature.start_collecting()
-
-    metric_name_p = config['MetricName_pressure']
-    pressure = Metric(
-# to IoT application developers.
-
-if __name__ == '__main__':
-
-    edge_system = RaspberrypiEdgeSystem(config['EdgeSystemName'])
-    
-    # Sending data to Graphite data center component
-    # Socket is the underlying transport used to connect to the Graphite
-    # instance
-    graphite = Graphite(SocketDccComms(ip=config['GraphiteIP'],
-                               port=config['GraphitePort']))
-    
-#    graphite_reg_dev = graphite.register(bme280_model)
-    graphite_reg_edge_system = graphite.register(edge_system)
-   
-#    print(get_temperature())
-     
     metric_name_t = config['MetricName_temperature']
     temperature = Metric(
         name=metric_name_t,
@@ -127,6 +95,7 @@ if __name__ == '__main__':
         interval=3,
         sampling_function=get_pressure
     )
+    
     reg_pressure = graphite.register(pressure)
     graphite.create_relationship(graphite_reg_edge_system, reg_pressure)
     reg_pressure.start_collecting()
@@ -137,6 +106,7 @@ if __name__ == '__main__':
         interval=3,
         sampling_function=get_humidity
     )
+    
     reg_humidity = graphite.register(humidity)
     graphite.create_relationship(graphite_reg_edge_system, reg_humidity)
     reg_humidity.start_collecting()
